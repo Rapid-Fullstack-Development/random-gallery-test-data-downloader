@@ -1,10 +1,8 @@
-# Random gallery generator
+# Random gallery test data generator
 
-This program generates a data file containing a randomized list of photos created using the Unsplash API.
+This program generates random test data for the Photosphere application using the Unsplash API.
 
-This code was created during a [live stream](https://youtu.be/_YzUpl_ip8M) to support the book [Rapid Fullstack Development](https://rapidfullstackdevelopment.com/).
-
-This repo contains [the randomly generated gallery data](./gallery.json) that was created during the live stream.
+This code was created to support the book [Rapid Fullstack Development](https://rapidfullstackdevelopment.com/).
 
 Follow on [Twitter](https://twitter.com/codecapers) for updates.
 
@@ -45,6 +43,8 @@ Run the code like this:
 ```bash
 npm start
 ```
+
+Test data (jpeg and json files) are downloaded to the `downloads` directory.
 
 
 
