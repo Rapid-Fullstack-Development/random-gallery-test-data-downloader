@@ -8,17 +8,27 @@ if (!UNSPLASH_ACCESS_KEY) {
 
 const BASE_URL = "https://api.unsplash.com";
 const NUM_PHOTOS = 100;
-const RANDOM_PHOTO_URL = `${BASE_URL}/photos/random?client_id=${UNSPLASH_ACCESS_KEY}&count=${NUM_PHOTOS}`;
+const MAX_BATCH = 30;
+const RANDOM_PHOTO_URL = `${BASE_URL}/photos/random?client_id=${UNSPLASH_ACCESS_KEY}&count=${MAX_BATCH}`;
 
 async function main () {
 
-    const { data } = await axios.get(RANDOM_PHOTO_URL);
+    const numBatches = Math.ceil(NUM_PHOTOS / MAX_BATCH);
 
-    for (const photo of data) {
-        await fs.promises.writeFile(`./downloads/${photo.id}.json`, JSON.stringify(data, null, 4));
+    //
+    // Download photos in batches.
+    //
+    
+    for (let batch = 0; batch < numBatches; ++batch) {
 
-        await downloadFile(photo.urls.full, `./downloads/${photo.id}.jpeg`);
+        const { data } = await axios.get(RANDOM_PHOTO_URL);
+        for (const photo of data) {
+            await fs.promises.writeFile(`./downloads/metadata/${photo.id}.json`, JSON.stringify(data, null, 4));
+    
+            await downloadFile(photo.urls.thumb, `./downloads/images/${photo.id}.jpeg`);
+        }
     }
+
 }
 
 main()
